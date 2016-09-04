@@ -10,6 +10,111 @@ html, body
   height 100%
   padding 0
   margin 0
+  font-family Verdana, Geneva, sans-serif
   
-h1
-  color forestgreen
+#screen
+  overflow hidden
+  position absolute
+  width 100%
+  height 100%
+  
+.toolbar
+  overflow hidden
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  width 100%
+  height 72px
+  background #FFF
+
+  .toolbar__title
+    color dodgerblue
+    font-size 18px
+  .toolbar__link
+    color dodgerblue
+    font-size 14px
+
+.content
+  //overflow hidden
+  width 100%
+  height calc(100% - 72px)
+  
+// Color strips
+.color-strip
+  //overflow hidden
+  position relative
+  width 100%
+  height 20%
+  background #EEE
+  
+  .strip__layer
+    //overflow hidden
+    display flex
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    transition transform 0.4s cubic-bezier(1.0,-1.0,0.6,1.0)
+    transform translate3d(0,0,0)
+    transform-origin 0 0 0
+    &.layer-0
+      display none
+      z-index 0
+    &.layer-shadow
+      display none
+      z-index 1
+    &.layer-1
+      display none
+      z-index 2
+    &.layer-2
+      z-index 3
+      opacity 1.0
+      
+    .segment
+      overflow hidden
+      flex-grow 1
+      height 100%
+      background #F44336
+      transition transform 0.4s cubic-bezier(1.0,-0.0,0.6,1.0), opacity 0.4s linear
+      transform translate3d(0,0,0)
+      transform-origin 0 0 0
+      pointer-events none
+      //outline 1px solid transparent // Forces AA but costs paint on every frame on gpu
+      
+      &.segment-1
+        transform-origin 0 0 0
+      &.segment-2
+        transform-origin 100% 0 0
+      &.segment-3
+        transform-origin 0 0 0
+      
+// Animation
+.color-strip.wriggle
+  .strip__layer
+    transition transform 0.3s cubic-bezier(0.4,0.0,0.0,2.0)
+  .segment
+    transition transform 0.3s cubic-bezier(0.4,0.0,0.0,1.0), opacity 0.4s linear
+  /*
+  .layer-shadow
+    transform scaleX(0.75)
+    .segment-1
+      transform matrix(1, 0.05, 0, 1, 0, 0)
+    .segment-2
+      transform matrix(1, -0.05, 0, 1, -5, 0)
+    .segment-3
+      transform matrix(1, 0.05, 0, 1, 0, 0)
+  */
+  .layer-1, .layer-2
+    transform scaleX(0.8)
+  .segment-1
+    transform skewY(-3deg)
+  .segment-2
+    transform skewY(3deg)
+  .segment-3
+    transform skewY(-3deg)
+  
+  .layer-2
+    .segment-2
+      opacity 0.0
