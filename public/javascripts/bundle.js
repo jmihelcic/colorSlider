@@ -1,0 +1,1 @@
+"use strict";console.log("part1"),console.log("part2"),console.log("part3"),console.log("part5");
