@@ -34,7 +34,21 @@ html, body
   .toolbar__link
     color dodgerblue
     font-size 14px
-
+  .toolbar__color-picker
+    position absolute
+    top 0
+    right 0
+    width 56px
+    height 56px
+    margin 8px
+    .color-picker__color
+      width 24px
+      height 24px
+      margin 16px
+      border-radius 16px
+      background #2196F3
+    
+  
 .content
   //overflow hidden
   width 100%
@@ -62,9 +76,11 @@ html, body
     &.layer-0
       display none
       z-index 0
-    &.layer-shadow
-      display none
-      z-index 1
+      flex-direction column
+      justify-content center
+      padding 0 4px 0 0
+      font-size 10px
+      text-align right
     &.layer-1
       display none
       z-index 2
@@ -76,7 +92,7 @@ html, body
       overflow hidden
       flex-grow 1
       height 100%
-      background #F44336
+      //background #F44336
       transition transform 0.4s cubic-bezier(1.0,-0.0,0.6,1.0), opacity 0.4s linear
       transform translate3d(0,0,0)
       transform-origin 0 0 0
@@ -86,10 +102,11 @@ html, body
       &.segment-1
         transform-origin 0 0 0
       &.segment-2
+        z-index 1
         transform-origin 100% 0 0
       &.segment-3
         transform-origin 0 0 0
-      
+        
 // Animation
 .color-strip.wriggle
   .strip__layer

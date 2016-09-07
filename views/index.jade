@@ -5,15 +5,12 @@ block content
     .toolbar
       .toolbar__title Color Slider
       a.toolbar__link(href='https://dribbble.com/shots/835127-Colour-Palette-Slide-iOS-App' target='tab') source
+      .toolbar__color-picker
+        .color-picker__color
     .content
       for i in [10, 20, 30, 40, 50]
         .color-strip(style='z-index:#{i}')
-          .strip__layer.layer-0
-          // Need to figure out best way to show shadows
-            .strip__layer.layer-shadow
-              .segment.segment-1
-              .segment.segment-2
-              .segment.segment-3
+          .strip__layer.layer-0 #FFFFFF
 
           .strip__layer.layer-1
             .segment.segment-1

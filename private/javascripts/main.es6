@@ -15,6 +15,8 @@ function requestAnimationFrameLong(callback) {
 class Strips {
   constructor() {
     this.color = '#C62828'
+    this.colorPicker = document.querySelector('.toolbar__color-picker')
+    this.colorIndicator = this.colorPicker.querySelector('.color-picker__color')
     this.content = document.querySelector('.content')
     this.strips = this.content.querySelectorAll('.color-strip')
     this.animating = false
@@ -32,14 +34,23 @@ class Strips {
   }
 
   _addEventListeners() {
-    /*
-    this.strips[0].querySelector('.segment-dark').addEventListener('transitionend', (event) => {
-      console.log('done', event)
+    // Only support two colors for demonstration
+    this.colorPicker.addEventListener('click', () => {
+      if(this.color === '#C62828') {
+        this.color = '#2196F3'
+        this.colorIndicator.style.background = '#C62828'
+      }
+      else {
+        this.color = '#C62828'
+        this.colorIndicator.style.background = '#2196F3'
+      }
+      this.colorize()
     })
-    */
 
+    // Transition end listeners
     this._setTransitionListeners()
 
+    // Listen for strip clicks / taps
     this.content.addEventListener('click', (event) => {
       if(this.animating) {
         return
@@ -80,7 +91,7 @@ class Strips {
           parent.querySelector('.layer-1').style.display = 'none'
         }
 
-        console.log(event)
+        //console.log(event)
       })
     }
   }
@@ -110,16 +121,24 @@ class Strips {
     let step = 0
         color = color || this.color
 
+
     for(let i=0,l=this.strips.length; i<l; i++) {
-      let shadedColor = this._shadeColor(color, step)
-      let segments = this.strips[i].querySelectorAll('.segment')
-      for(let j=0,k=segments.length; j<k; j++) {
-        segments[j].style.background = shadedColor
-        // The dark segment
-        if(j === 1) {
-          segments[j].style.background = this._shadeColor(shadedColor, -25)
+      setTimeout((function(step) {
+
+        let shadedColor = this._shadeColor(color, step)
+        let segments = this.strips[i].querySelectorAll('.segment')
+
+        this.strips[i].querySelector('.layer-0').textContent = shadedColor
+        this.strips[i].style.color = shadedColor
+        for(let j=0,k=segments.length; j<k; j++) {
+          segments[j].style.background = shadedColor
+          // The dark segment
+          if(j === 1) {
+            segments[j].style.background = this._shadeColor(shadedColor, -25)
+          }
         }
-      }
+
+      }).bind(this, step), i*100)
       step -= 15
     }
   }
